@@ -40,9 +40,22 @@ class SeoPageTest extends \PHPUnit_Framework_TestCase
             'property' => array('foo' => array('bar', array()), 'foo2' => array('bar2', array())),
         );
 
+        $expected = array(
+            'property' => array('foo' => array('bar', array()), 'foo2' => array('bar2', array())),
+        );
         $this->assertEquals($expected, $page->getMetas());
     }
-
+    
+    public function testAcceptedMetaContent()
+    {
+        $page = new SeoPage();
+        $page->setMetas(array('property' => array('int' => 123, 'string' => 'i am a string', 'float' => 55.22)));
+        $expected = array(
+            'property' => array('int' => array(123, array()), 'string' => array('i am a string', array()), 'float' => array(55.22, array())),
+        );
+        $this->assertEquals($expected, $page->getMetas());
+    }
+    
     public function testRemoveMeta()
     {
         $page = new SeoPage();
